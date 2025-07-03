@@ -39,7 +39,7 @@
             placeholder="Enter phone"
           />
         </div>
-        <button type="submit" @click="$router.push(`/skin-info`)" class="btn btn-cta mt-2">
+        <button type="submit" @click="nextStep" class="btn btn-cta mt-2">
           Continue
         </button>
       </div>
@@ -55,5 +55,11 @@ import { defineComponent } from 'vue';
 export default defineComponent({
   name: 'IndexJourney',
   components: {},
+  emits: ['next'],
+  methods: {
+    nextStep() {
+      this.$emit('next');
+    },
+  },
 });
 </script>

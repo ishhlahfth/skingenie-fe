@@ -31,7 +31,7 @@
   <div class="row justify-content-center section-margin text-center">
     <div class="col-lg-9">
       <h3><strong>Ready to start your skincare journey?</strong> Hit the button below!</h3>
-      <button @click="$router.push(`/personal-info`)" class="btn btn-cta mt-2">
+      <button @click="nextStep" class="btn btn-cta mt-2">
         Start Your Skincare Journey
       </button>
     </div>
@@ -47,5 +47,11 @@ export default defineComponent({
     const router = useRouter();
   },
   components: {},
+  emits: ['next'],
+  methods: {
+    nextStep() {
+      this.$emit('next');
+    },
+  },
 });
 </script>

@@ -17,6 +17,7 @@ module.exports = {
     'vuejs-accessibility/label-has-for': 'off',
     'vuejs-accessibility/form-control-has-label': 'off',
     'max-len': 'off',
-    'vuejs-accessibility/click-events-have-key-events': 'off'
+    'vuejs-accessibility/click-events-have-key-events': 'off',
+    'linebreak-style': 'off',
   },
 };
