@@ -15,7 +15,7 @@ export default createStore({
       concern_id: '',
       price_form: '',
       price_to: '',
-      recommend: '',
+      recommend: 100,
     },
     submissionResult: {
       recommended: {},

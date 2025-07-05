@@ -65,7 +65,7 @@ export default defineComponent({
         concern_id: '',
         price_form: '',
         price_to: '',
-        recommend: '',
+        recommend: 100,
       };
       this.store.state.submissionResult = {
         recommended: {},

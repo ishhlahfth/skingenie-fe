@@ -7,6 +7,15 @@
           <!-- <button type="submit" @click="$router.push(`/skin-info`)" class="btn btn-cta mt-2">
             Approve Product
           </button> -->
+          <div class="d-flex justify-content-center">
+          <a
+            :href="data.sociolla_url"
+            target="_blank"
+            class="btn btn-cta mt-2"
+          >
+            Buy Now
+        </a>
+        </div>
         </div>
       </div>
       <div class="col-md-8 col-xs-12">
@@ -28,20 +37,6 @@
             <h5><i>Ingredients :</i></h5>
             <div v-html="data.ingredients"></div>
           </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
-        <hr />
-        <div class="d-flex justify-content-center">
-          <a
-            :href="data.sociolla_url"
-            target="_blank"
-            class="btn btn-cta mt-2"
-          >
-            Buy Now
-        </a>
         </div>
       </div>
     </div>

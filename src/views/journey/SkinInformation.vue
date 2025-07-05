@@ -96,6 +96,12 @@
                 </div>
               </div>
             </div>
+            <div class="form-group">
+              <label for="exampleFormControlSelect1">Jumlah Rekomendasi Pembeli</label>
+              <input type="range" class="form-range" min="1" max="200" id="customRange2" v-model="formData.recommend">
+              <p>({{formData.recommend}})</p>
+
+            </div>
 
             <button type="submit" @click="handleSubmit" class="btn btn-cta mt-2">
               Get The Recommendation
@@ -184,15 +190,15 @@ export default defineComponent({
     async handleSubmit() {
       this.isLoading = true;
       try {
-        if (this.formData.price_to < this.formData.price_form) {
-          Swal.fire({
-            title: 'Failed To Process',
-            text: 'Oops! Please check your price range.',
-            icon: 'error',
-            confirmButtonText: 'OK',
-          });
-          return;
-        }
+        // if (this.formData.price_to < this.formData.price_form) {
+        //   Swal.fire({
+        //     title: 'Failed To Process',
+        //     text: 'Oops! Please check your price range.',
+        //     icon: 'error',
+        //     confirmButtonText: 'OK',
+        //   });
+        //   return;
+        // }
         const response = await apiClient.post('submission/request', this.formData);
         if (response.data.success) {
           this.store.state.submissionResult.recommended = response.data.data.recommended;
