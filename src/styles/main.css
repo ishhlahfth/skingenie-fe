@@ -430,6 +430,22 @@ p {
   [data-aos-delay] {
     transition-delay: 0 !important;
   }
+  .bs-modal-style {
+    min-width: 100% !important;
+  }
+  .product-modal {
+    max-height: 500px;
+    overflow: auto;
+  }
+  .detail-box {
+    overflow: none !important;
+  }
+  .home-big {
+    flex-direction: column !important;
+  }
+  .home-intro {
+    max-width: 100%;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -558,15 +574,35 @@ section,
 }
 
 .img-result {
-  width: 300px;
+  width: 200px;
   border-radius: 20px;
   box-shadow: #20c997 2px 2px 2px;
+}
+
+.img-other {
+  width: 100px;
+  border-radius: 10px;
+}
+
+.card-other {
+  background-color: rgba(219,145,148,0.48);
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.radius-box {
+  border-radius: 30px;
 }
 
 .img-result-modal {
   width: 100%;
   border-radius: 20px;
   box-shadow: #20c997 2px 2px 2px;
+}
+
+.detail-box {
+  max-height: 500px;
+  overflow: auto;
 }
 
 .loading-spinner {

@@ -1,5 +1,5 @@
 <template>
-  <Header />
+  <!-- <Header /> -->
   <main class="main">
     <!-- Hero Section -->
     <section id="hero" class="hero section light-background">
@@ -8,13 +8,13 @@
           <IndexJourney @next="handleNextStep" />
         </template>
         <template v-else-if="step === 1">
-          <PersonalInformation @next="handleNextStep"/>
+          <PersonalInformation @next="handleNextStep" />
         </template>
         <template v-else-if="step === 2">
-          <SkinInformation @next="handleNextStep"/>
+          <SkinInformation @next="handleNextStep" />
         </template>
         <template v-else-if="step === 3">
-          <ResultPage />
+          <ResultPage @home="handleResetStep" />
         </template>
       </div>
     </section>
@@ -23,8 +23,9 @@
 </template>
 
 <script lang="ts">
-import Header from '@/components/Header.vue';
+// import Header from '@/components/Header.vue';
 import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import IndexJourney from './journey/IndexJourney.vue';
 import PersonalInformation from './journey/PersonalInformation.vue';
 import SkinInformation from './journey/SkinInformation.vue';
@@ -33,11 +34,17 @@ import ResultPage from './journey/ResultPage.vue';
 export default defineComponent({
   name: 'HomeView',
   components: {
-    Header,
+    // Header,
     IndexJourney,
     PersonalInformation,
     SkinInformation,
     ResultPage,
+  },
+  setup() {
+    const store = useStore();
+    return {
+      store,
+    };
   },
   data() {
     return {
@@ -47,6 +54,24 @@ export default defineComponent({
   methods: {
     handleNextStep() {
       this.step += 1;
+    },
+    handleResetStep() {
+      this.store.state.formSubmission = {
+        category_id: '',
+        user_name: '',
+        user_phone: '',
+        user_email: '',
+        tipe_id: '',
+        concern_id: '',
+        price_form: '',
+        price_to: '',
+        recommend: '',
+      };
+      this.store.state.submissionResult = {
+        recommended: {},
+        others: [],
+      };
+      this.step = 0;
     },
   },
 });

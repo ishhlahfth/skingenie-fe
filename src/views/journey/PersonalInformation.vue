@@ -10,11 +10,15 @@
     </p>
   </div>
   <div class="row">
+    <p>Step 1/3</p>
     <div class="ribbon-white">
-      <div class="d-flex flex-column gap-4 align-items-center justify-content-center py-2 form-sg text-center">
+      <div
+        class="d-flex flex-column gap-4 align-items-center justify-content-center py-2 form-sg text-center"
+      >
         <div class="form-group">
           <label for="exampleInputEmail1">Your Name</label>
           <input
+            v-model="formData.user_name"
             type="text"
             class="form-control"
             id="exampleInputEmail1"
@@ -24,6 +28,7 @@
         <div class="form-group">
           <label for="exampleInputEmail1">Your Email</label>
           <input
+            v-model="formData.user_email"
             type="email"
             class="form-control"
             id="exampleInputEmail1"
@@ -33,15 +38,15 @@
         <div class="form-group">
           <label for="exampleInputEmail1">Your Phone</label>
           <input
+            v-model="formData.user_phone"
             type="text"
             class="form-control"
             id="exampleInputEmail1"
             placeholder="Enter phone"
+            @input="onPhoneNumberInput"
           />
         </div>
-        <button type="submit" @click="nextStep" class="btn btn-cta mt-2">
-          Continue
-        </button>
+        <button type="submit" @click="nextStep" class="btn btn-cta mt-2">Continue</button>
       </div>
     </div>
   </div>
@@ -51,14 +56,52 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
+import Swal from 'sweetalert2';
 
 export default defineComponent({
   name: 'IndexJourney',
   components: {},
   emits: ['next'],
+  setup() {
+    const store = useStore();
+    return {
+      store,
+    };
+  },
+  computed: {
+    formData(): any {
+      return this.store.state.formSubmission;
+    },
+  },
   methods: {
+    formValidate() {
+      let isValidated = true;
+      if (this.formData.user_name === '') {
+        isValidated = false;
+      }
+      if (this.formData.user_phone === '') {
+        isValidated = false;
+      }
+      if (this.formData.user_email === '') {
+        isValidated = false;
+      }
+      return isValidated;
+    },
+    onPhoneNumberInput(e:any) {
+      this.formData.user_phone = e.target.value.replace(/\D/g, '');
+    },
     nextStep() {
-      this.$emit('next');
+      if (!this.formValidate()) {
+        Swal.fire({
+          title: 'Failed To Continue',
+          text: 'Oops! Please fill all the form fields.',
+          icon: 'error',
+          confirmButtonText: 'OK',
+        });
+      } else {
+        this.$emit('next');
+      }
     },
   },
 });

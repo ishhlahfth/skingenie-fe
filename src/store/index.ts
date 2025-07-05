@@ -6,7 +6,21 @@ export default createStore({
     scCategories: [],
     scType: [],
     scConcern: [],
-    formSubmission: {},
+    formSubmission: {
+      category_id: '',
+      user_name: '',
+      user_phone: '',
+      user_email: '',
+      tipe_id: '',
+      concern_id: '',
+      price_form: '',
+      price_to: '',
+      recommend: '',
+    },
+    submissionResult: {
+      recommended: {},
+      others: [],
+    },
   },
   getters: {
     SET_SC_CATEGORIES(state, payload) {
@@ -20,6 +34,9 @@ export default createStore({
     },
     SET_FORM_SUBMISSION(state, payload) {
       state.formSubmission = payload;
+    },
+    SET_RESULT(state, payload) {
+      state.submissionResult = payload;
     },
   },
   actions: {
@@ -52,6 +69,10 @@ export default createStore({
       } catch (error) {
         console.log(error);
       }
+    },
+    clearResult() {
+      this.state.submissionResult.recommended = {};
+      this.state.submissionResult.others = [];
     },
   },
   mutations: {},

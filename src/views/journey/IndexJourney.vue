@@ -8,7 +8,7 @@
   </div>
   <div class="row">
     <div class="ribbon-white">
-      <div class="d-flex flex-row gap-4 align-items-center justify-content-between">
+      <div class="d-flex flex-row gap-4 align-items-center justify-content-between home-big">
         <div class="home-intro p-4">
           <img class="img-clip-home" src="@/assets/images/clip-skincare-rounded.png" alt="" />
         </div>

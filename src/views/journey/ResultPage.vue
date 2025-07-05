@@ -1,68 +1,61 @@
 <template>
   <modal v-model="modal.productDetailModal">
-    <ProductDetailsModal />
+    <ProductDetailsModal :data="modalData" />
   </modal>
   <div class="row justify-content-center section-margin text-center">
     <div class="col-lg-9">
       <h2>Find your personalized skincare.</h2>
     </div>
-    <p>Your Tailored Discovery!</p>
   </div>
   <div class="row">
+    <p>Step 3/3</p>
     <div class="ribbon-white">
-      <template v-if="isLoading">
-        <div class="d-flex flex-column gap-4 align-items-center justify-content-center py-4 text-center">
-          <div class="spinner-border" style="width: 8em; height: 8rem; color: #FFB6C1;" role="status">
-            <span class="sr-only"></span>
-          </div>
-          <h4>Hang tight!</h4>
-          <h4>We're analyzing your skin criteria to conjure up the best recommendations.</h4>
+      <div
+        class="d-flex flex-column gap-4 align-items-center justify-content-center py-2 form-sg mt-4 radius-box"
+      >
+        <h4>Here is your Tailored Discovery!</h4>
+        <div>
+          <img :src="resultData.recommended.img_url" class="img-result" alt="" />
         </div>
-      </template>
-      <template v-else>
-        <div
-          class="d-flex flex-column gap-4 align-items-center justify-content-center py-2 form-sg"
+        <h4>{{ resultData.recommended.skincare_name }}</h4>
+        <h4>
+          Rp {{ convertCurrency(resultData.recommended.min_price) }} -
+          Rp {{ convertCurrency(resultData.recommended.max_price) }}
+        </h4>
+        <button
+          type="button"
+          class="btn btn-cta mt-2"
+          @click="handleShowProductDetailModal(resultData.recommended)"
         >
-          <div>
-            <img
-              src="https://images.soco.id/e9dfd5c2-b565-4ae7-9318-b5c5cc0cf4bc-image-0-1626929910328"
-              class="img-result"
-              alt=""
-            />
-          </div>
-          <h4>MIni Oil Control Cleanser pH Balanced</h4>
-          <h4>Rp 51.450</h4>
-          <button type="button" class="btn btn-cta mt-2" @click="handleShowProductDetailModal">
-            See Details
-          </button>
-          <div
-            class="modal fade"
-            id="exampleModal"
-            tabindex="-1"
-            role="dialog"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-          >
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">...</div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
-                  </button>
-                  <button type="button" class="btn btn-primary">Save changes</button>
-                </div>
+          See Details
+        </button>
+      </div>
+      <div class="container">
+        <div class="row text-center mt-4">
+          <h4>You might like :</h4>
+        </div>
+        <div class="row mb-4">
+          <template v-for="(sc, i) in resultData.others" :key="i">
+            <div class="col-md-3 col-sm-12 mt-2 mx-auto" @click="handleShowProductDetailModal(sc)">
+              <div class="d-flex card-other align-items-center gap-2 p-4">
+                <img :src="sc.img_url" class="img-other" alt="" />
+                <p>{{ sc.skincare_name }}</p>
               </div>
             </div>
+          </template>
+        </div>
+        <div class="row text-center my-2">
+          <div>
+            <button
+              type="button"
+              class="btn btn-cta mt-2"
+              @click="handleBackToHome()"
+            >
+              Try Another Combination
+            </button>
           </div>
         </div>
-      </template>
+      </div>
     </div>
   </div>
   <div class="row justify-content-center section-margin">
@@ -71,6 +64,7 @@
 </template>
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { useStore } from 'vuex';
 import Modal from '@/components/Modal.vue';
 import ProductDetailsModal from './ProductDetailsModal.vue';
 
@@ -80,20 +74,41 @@ export default defineComponent({
     ProductDetailsModal,
     Modal,
   },
+  emits: ['home'],
+  setup() {
+    const store = useStore();
+    return {
+      store,
+    };
+  },
   data() {
     return {
       isLoading: false,
       modal: {
         productDetailModal: false,
       },
+      modalData: {},
     };
   },
+  computed: {
+    resultData(): any {
+      return this.store.state.submissionResult;
+    },
+  },
   methods: {
-    handleShowProductDetailModal() {
+    convertCurrency(amt: number): string {
+      return amt.toLocaleString('en-US');
+    },
+    handleShowProductDetailModal(skincare: any) {
+      this.modalData = {};
+      this.modalData = skincare;
       this.modal.productDetailModal = true;
     },
     handleHideProductDetailModal() {
       this.modal.productDetailModal = false;
+    },
+    handleBackToHome() {
+      this.$emit('home');
     },
   },
 });
