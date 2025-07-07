@@ -7,20 +7,9 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/HomeView.vue'),
   },
   {
-    path: '/personal-info',
-    name: 'personal-info',
-    component: () => import('@/views/journey/PersonalInformation.vue'),
-  },
-  {
-    path: '/skin-info',
-    name: 'skin-info',
-    component: () => import('@/views/journey/SkinInformation.vue'),
-  },
-
-  {
-    path: '/result',
-    name: 'result',
-    component: () => import('@/views/journey/ResultPage.vue'),
+    path: '/dashboard',
+    name: 'admin-dashboard',
+    component: () => import('@/views/DashboardView.vue'),
   },
 ];
 

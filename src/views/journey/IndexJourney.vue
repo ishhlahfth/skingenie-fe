@@ -2,7 +2,7 @@
   <div class="row justify-content-center section-margin text-center">
     <div class="col-lg-9">
       <h2>SkinGenie</h2>
-      <h4>By Tata</h4>
+      <h4 @click="$router.push(`/dashboard`)" class="cursor-pointer">By Tata</h4>
     </div>
     <p>Discover the perfect skincare tailored just for you.</p>
   </div>

@@ -560,6 +560,13 @@ section,
   padding: 20px;
 }
 
+.card-dashboard {
+  background-color: rgba(219,145,148,0.48);
+  border-radius: 20px;
+  margin: 5px;
+  padding: 20px;
+}
+
 .form-sg label {
   font-size: 22px;
 }
